@@ -1,26 +1,25 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useSelector } from "react-redux";
-
-import { incrementAction } from "./Redux/Actions";
-import { decrementAction } from "./Redux/Actions";
+import List from "./Components/List";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
+
+import { addUser } from "./Redux/Actions";
 function App() {
   const dispatch = useDispatch();
-  const count = useSelector((state) => state);
-  console.log(count);
-  const handleIncrement = () => {
-    dispatch(incrementAction());
-  };
-  const handleDecrement = () => {
-    dispatch(decrementAction());
+  const [state, setState] = useState(" ");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(addUser(state));
   };
   return (
-    <div className="App">
-      <button onClick={handleIncrement}>+</button>
-      <h1>{count}</h1>
-      <button onClick={handleDecrement}>-</button>
-    </div>
+    <>
+      <form className="App" onSubmit={handleSubmit}>
+        <input onChange={(e) => setState(e.target.value)} />
+        <button type="submit">Submit</button>
+      </form>
+      <List />
+    </>
   );
 }
 

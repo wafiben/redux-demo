@@ -1,10 +1,8 @@
-const initState = 0;
+const initState = ["amine", "sirine"];
 const Reducer = (state = initState, action) => {
   switch (action.type) {
-    case "increment":
-      return state + 1;
-    case "decrement":
-      return state - 1;
+    case "add":
+      return [...state, action.payload];
     default:
       return state;
   }
